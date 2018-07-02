@@ -1,3 +1,4 @@
 /dbSetup/dbCredentials.json
 /dbSetup/data/
 *pyc
+secretkey.txt
