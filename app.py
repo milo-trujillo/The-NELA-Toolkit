@@ -54,7 +54,25 @@ for tmp in glob.glob(os.path.join("static", "tmp-*")):
 	except:
 		pass
 
-app.secret_key = str(uuid.uuid4())
+def generateKey():
+	keyfilename = "secretkey.txt"
+	key = ""
+	try:
+		keyfile = open(keyfilename, "r")
+		key = keyfile.read()
+		keyfile.close()
+	except IOError:
+		key = os.urandom(36)
+		keyfile = open(keyfilename, "w")
+		keyfile.write(key)
+		keyfile.close()
+	except Exception, e:
+		sys.stderr.write("Error during keyfile processing\n")
+		sys.stderr.write("Error details: %s\n" % str(e))
+		sys.exit(1)
+	return key
+
+app.secret_key = generateKey()
 ####################################################
 
 @app.after_request
@@ -635,6 +653,4 @@ if __name__ == "__main__":
 		except:
 			pass
 
-	app.secret_key = str('2e239029-814f-4ece-b99c-1f539509ca10')
- 
 	app.run(host='0.0.0.0', port=80, threaded=True)
