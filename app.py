@@ -24,8 +24,9 @@ credsFile = "../dbCredentials.json"
 jsonCreds = ""
 try:
 	jsonCreds = open(credsFile)
-except:
+except Exception, e:
 	sys.stderr.write("Error: Invalid database credentials file\n")
+	sys.stderr.write("Error details: %s\n" % str(e))
 	sys.exit(1)
 
 creds = json.load(jsonCreds)
@@ -604,8 +605,9 @@ if __name__ == "__main__":
 	jsonCreds = ""
 	try:
 		jsonCreds = open(credsFile)
-	except:
+	except Exception, e:
 		sys.stderr.write("Error: Invalid database credentials file\n")
+		sys.stderr.write("Error details: %s\n" % str(e))
 		sys.exit(1)
 
 	creds = json.load(jsonCreds)

@@ -20,8 +20,9 @@ def getCSVData(dataFile):
 	try:
 		data = open(dataFile)
 		return data
-	except:
+	except Exception, e:
 		sys.stderr.write("Error: Invalid data file\n")
+		sys.stderr.write("Error details: %s\n" % str(e))
 		sys.exit(1) 
 
 # Loads article
@@ -76,8 +77,9 @@ if __name__ == "__main__":
 	jsonCreds = ""
 	try:
 		jsonCreds = open(credsFile)
-	except:
+	except Exception, e:
 		sys.stderr.write("Error: Invalid database credentials file\n")
+		sys.stderr.write("Error details: %s\n" % str(e))
 		sys.exit(1)
 
 	creds = getDBCredentials(jsonCreds)
